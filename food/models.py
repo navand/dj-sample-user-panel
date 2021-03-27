@@ -6,7 +6,7 @@ class Food(models.Model):
     name = models.CharField(max_length=100, null=True)  
     email = models.EmailField(null=True)  
     telephone = models.CharField(max_length=15, null=True)
-    profilePicture = models.CharField(max_length=15, null=True)
+    profilePicture = models.ImageField(upload_to="uploads", default='e.png')
     dateOfBirth = models.DateField(null=True)
     favoriteFood = models.CharField(max_length=100, null=True)
 

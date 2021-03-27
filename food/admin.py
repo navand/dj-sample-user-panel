@@ -9,8 +9,8 @@ import logging
 
 class FoodAdmin(admin.ModelAdmin):  
     form = FoodForm
-    list_display = ('name', 'email', 'favoriteFood')
-    readonly_fields = ['name', 'email', 'telephone', 'profilePicture', 'dateOfBirth', 'favoriteFood']
+    # list_display = ('name', 'email', 'favoriteFood')
+    # readonly_fields = ['name', 'email', 'telephone', 'profilePicture', 'dateOfBirth', 'favoriteFood']
         
     def save_model(self, request, obj, form, change):
         logging.info("I'm here")

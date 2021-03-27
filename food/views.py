@@ -1,33 +1,43 @@
-from django.shortcuts import render, redirect  
-from food.forms import FoodForm  
-from food.models import Food  
-# Create your views here.  
-def emp(request):  
-    if request.method == "POST":  
-        form = FoodForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('/show')  
-            except:  
-                pass  
-    else:  
-        form = FoodForm()  
-    return render(request,'index.html',{'form':form})  
-def index(request):  
-    foods = Food.objects.all()  
-    return render(request,"show.html",{'foods':foods})  
-def edit(request, id):  
-    food = Food.objects.get(id=id)  
-    return render(request,'edit.html', {'food':food})  
-def update(request, id):  
-    food = Food.objects.get(id=id)  
-    form = FoodForm(request.POST, instance = food)  
-    if form.is_valid():  
-        form.save()  
-        return redirect("/show")  
-    return render(request, 'edit.html', {'food': food})  
-def destroy(request, id):  
-    food = Food.objects.get(id=id)  
-    food.delete()  
-    return redirect("/show")  
+from django.contrib.auth.decorators import permission_required, login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+# Create your views here.
+from .models import Food
+from .forms import FoodForm
+
+@login_required(login_url="/")
+def all_foods(request):
+    foods = Food.objects.filter(user=request.user)
+    context = {
+        'foods': foods
+    }
+    return render(request, 'food/index.html', context)
+
+@login_required(login_url="/")
+# @permission_required('food.can_edit')
+def edit_foods(request, id=None):
+    one_food = Food.objects.get(id=id)
+    form = FoodForm(request.POST or None, request.FILES or None, instance=one_food)
+    if form.is_valid():
+        form.save()
+
+        messages.add_message(request, messages.INFO, f"{form.cleaned_data.get('name')} has been added")
+        return redirect('food')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'food/edit.html', context)
+
+
+def one_food(request, id=None):
+    food = Food.objects.get(id=id)
+    context = {
+        'food': food
+    }
+    return render(request, 'food/viewFood.html', context)
+
+def home_view(request):
+    context = dict()
+    return render(request, 'food/home.html', context)
