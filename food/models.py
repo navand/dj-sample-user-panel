@@ -2,11 +2,11 @@ from django.db import models
 from django.conf import settings
 
 class Food(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, unique=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, limit_choices_to={'groups__name': "Client"}, on_delete=models.CASCADE, null=True, unique=False)
     name = models.CharField(max_length=100, null=True)  
     email = models.EmailField(null=True)  
     telephone = models.CharField(max_length=15, null=True)
-    profilePicture = models.ImageField(upload_to="uploads", default='e.png')
+    profilePicture = models.ImageField(upload_to="uploads", default='blank.png')
     dateOfBirth = models.DateField(null=True)
     favoriteFood = models.CharField(max_length=100, null=True)
 

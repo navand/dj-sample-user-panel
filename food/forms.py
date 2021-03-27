@@ -16,13 +16,15 @@ class FoodForm(forms.ModelForm):
                 "class": "form-control"
             }
         ))
-    email = forms.CharField(
+    email = forms.EmailField(
         widget=forms.TextInput(
             attrs={             
                 "class": "form-control"
             }
         ))
-    telephone = forms.CharField(
+    telephone = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$', 
+        error_messages = {"invalid":"Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."},
         widget=forms.TextInput(
             attrs={             
                 "class": "form-control"
