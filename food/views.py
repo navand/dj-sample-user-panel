@@ -31,13 +31,10 @@ def edit_foods(request, id=None):
     return render(request, 'food/edit.html', context)
 
 
+@login_required(login_url="/")
 def one_food(request, id=None):
-    food = Food.objects.get(id=id)
+    food = Food.objects.get(id=id, user=request.user)
     context = {
         'food': food
     }
-    return render(request, 'food/viewFood.html', context)
-
-def home_view(request):
-    context = dict()
-    return render(request, 'food/home.html', context)
+    return render(request, 'food/view.html', context)

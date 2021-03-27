@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Food details</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center m-5" role="alert">
+                                    <img src="{{food.profilePicture.url}}" width="300px" class="m-3">
+                                    <h4><b>Name:</b> {{food.name}}</h4>
+                                    <h4><b>Email:</b> {{food.email}}</h4>
+                                    <h4><b>Telephone:</b> {{food.telephone}}</h4>
+                                    <h4><b>Date of birth:</b> {{food.dateOfBirth}}</h4>
+                                    <h4><b>Favorite food:</b> {{food.favoriteFood}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
