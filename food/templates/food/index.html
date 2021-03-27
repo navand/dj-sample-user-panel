@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <h2 class="text-center">Foods Dashboard</h2>
+                        <p class="text-center"></p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Profile Picture</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Telephone</th>
+                                    <th>Date of birth</th>
+                                    <th>Favorite food</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% if foods %}
+                                {% for food in foods %}
+                                <tr>
+                                    <td>{{ forloop.counter}}</td>
+                                    <td><img src="{{food.profilePicture.url}}" width="80px" height="70px" class="rounded"></td>
+                                    <td><a href="{% url 'oneFood' food.id %}">{{food.name}}</a></td>
+                                    <td>{{food.email}}</td>
+                                    <td>{{food.telephone}}</td>
+                                    <td>{{food.dateOfBirth}}</td>
+                                    <td>{{food.favoriteFood}}</td>
+                                    <td><a href="{% url 'editFood' food.id %}" class="btn btn-outline-warning">Edit</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="4"><span>
+                                            No Record Found !
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
