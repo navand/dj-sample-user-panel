@@ -1,9 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from django.contrib.auth import (
-    BACKEND_SESSION_KEY, SESSION_KEY, _clean_credentials, authenticate,
-    get_user, signals,
-)
+from django.contrib.auth import authenticate
 
 class LoginTest(TestCase):
 
