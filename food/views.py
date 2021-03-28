@@ -23,8 +23,7 @@ def edit_foods(request, id=None):
         messages.add_message(request, messages.ERROR, "Food notfound")
         return redirect('food')
 
-    print(one_food)
-    if(one_food.user != request.user):
+    if(one_food.user.id != request.user.id):
         messages.add_message(request, messages.ERROR, "You haven't access to this food")
         return redirect('food')
 
@@ -39,7 +38,6 @@ def edit_foods(request, id=None):
         'form': form,
     }
     return render(request, 'food/edit.html', context)
-
 
 @login_required(login_url="/")
 @permission_required('food.view_food', login_url="/")
