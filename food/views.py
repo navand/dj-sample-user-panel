@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-# Create your views here.
 from .models import Food
 from .forms import FoodForm
 
@@ -33,7 +32,7 @@ def edit_foods(request, id=None):
     if form.is_valid():
         form.save()
 
-        messages.add_message(request, messages.INFO, f"{form.cleaned_data.get('name')} has been added")
+        messages.add_message(request, messages.INFO, "Your food has been updated")
         return redirect('food')
 
     context = {
