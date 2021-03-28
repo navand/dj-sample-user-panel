@@ -8272,6 +8272,17 @@ a.btn-theme.active {
   color: #753433;
 }
 
+.alert-error {
+  color: #994442;
+  border-color: #fccac7;
+}
+.alert-error hr {
+  border-top-color: #fbb3af;
+}
+.alert-error .alert-link {
+  color: #753433;
+}
+
 .alert-light {
   color: #98a0a4;
   border-color: #fbfbfb;

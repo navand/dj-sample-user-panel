@@ -10,7 +10,14 @@
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <!-- [ breadcrumb ] start -->
-
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
         <!-- [ breadcrumb ] end -->
         <div class="main-body">
             <div class="page-wrapper">
@@ -38,7 +45,8 @@
                                 {% for food in foods %}
                                 <tr>
                                     <td>{{ forloop.counter}}</td>
-                                    <td><img src="{{food.profilePicture.url}}" width="80px" height="70px" class="rounded"></td>
+                                    <td><img src="{{food.profilePicture.url}}" width="80px" height="70px"
+                                            class="rounded"></td>
                                     <td><a href="{% url 'oneFood' food.id %}">{{food.name}}</a></td>
                                     <td>{{food.email}}</td>
                                     <td>{{food.telephone}}</td>

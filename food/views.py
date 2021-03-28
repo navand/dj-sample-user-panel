@@ -7,6 +7,7 @@ from .models import Food
 from .forms import FoodForm
 
 @login_required(login_url="/")
+@permission_required('food.view_food', login_url="/")
 def all_foods(request):
     foods = Food.objects.filter(user=request.user)
     context = {
@@ -15,9 +16,19 @@ def all_foods(request):
     return render(request, 'food/index.html', context)
 
 @login_required(login_url="/")
-@permission_required('food.can_change', login_url="/")
+@permission_required('food.change_food', login_url="/")
 def edit_foods(request, id=None):
-    one_food = Food.objects.get(id=id)
+    try:
+        one_food = Food.objects.get(id=id)
+    except Food.DoesNotExist:
+        messages.add_message(request, messages.ERROR, "Food notfound")
+        return redirect('food')
+
+    print(one_food)
+    if(one_food.user != request.user):
+        messages.add_message(request, messages.ERROR, "You haven't access to this food")
+        return redirect('food')
+
     form = FoodForm(request.POST or None, request.FILES or None, instance=one_food)
     if form.is_valid():
         form.save()
@@ -32,8 +43,18 @@ def edit_foods(request, id=None):
 
 
 @login_required(login_url="/")
+@permission_required('food.view_food', login_url="/")
 def one_food(request, id=None):
-    food = Food.objects.get(id=id, user=request.user)
+    try:
+        food = Food.objects.get(id=id)
+    except Food.DoesNotExist:
+        messages.add_message(request, messages.ERROR, "Food notfound")
+        return redirect('food')
+
+    if(food.user != request.user):
+        messages.add_message(request, messages.ERROR, "You haven't access to this food")
+        return redirect('food')
+
     context = {
         'food': food
     }
