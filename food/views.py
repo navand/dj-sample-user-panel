@@ -15,7 +15,7 @@ def all_foods(request):
     return render(request, 'food/index.html', context)
 
 @login_required(login_url="/")
-# @permission_required('food.can_edit')
+@permission_required('food.can_change', login_url="/")
 def edit_foods(request, id=None):
     one_food = Food.objects.get(id=id)
     form = FoodForm(request.POST or None, request.FILES or None, instance=one_food)
